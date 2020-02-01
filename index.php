@@ -85,7 +85,7 @@ function recreateCache() {
     // loadCommonUI("Creating Cache","");
     // $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
     showLoader();
-    processAJAXQuery(_service("dcAnalyser","create_cache"), function(data) {
+    processAJAXQuery(_service("dcLists","create_cache"), function(data) {
         hideLoader();
         lgksToast(data.Data.msg);
         // $("#pgworkspace tbody").html("");
@@ -163,18 +163,11 @@ function openCodeLink(src) {
     href=$(src).attr("href");
     if(href.length<3) return false;
     
-	txt=$(src).text();
+    txt=$(src).text();
 	txt=txt.split("/");
 	txt=txt[txt.length-1];
-    if(href.substr(0,8)=="https://" || href.substr(0,7)=="http://" || href.substr(0,5)=="ftp://") {
-		return true;
-	} else {
-		href=href.split("@");
-		lx=_link(href[0])+href[1];
-		lx=lx.replace("?&","?");
-		parent.openLinkFrame(txt,lx);
-	}
     
+    parent.openLinkFrame(txt,href);
     return false;
 }
 </script>
