@@ -57,6 +57,15 @@ function getDCContents($filesAry,$filetype="report") {
                             $temp['link']=_link("modules/cmsEditor")."&type=edit&src=" .urlencode($temp['path']);///plugins/modules/credsRoles/style.css
                             $temp['sqlquery']=$result['sqlquery'];
                             $temp['tables']=$result['tables'];
+                            $temp['table_count']=$result['table_count'];
+                            $temp['className'] = "alert ";
+                            
+                            if($temp['table_count']>4) {
+                                $temp['className'] .= "alert-danger ";
+                            } elseif($temp['table_count']>3) {
+                                $temp['className'] .= "alert-warning ";
+                            }
+                            
                             $finalResults[]=$temp;
                         }
                     break;
@@ -89,14 +98,20 @@ function getContentsFromReport($content){
         $configContents=json_decode($content,true);
         if(isset($configContents['source'])){
             $src=$configContents['source'];
-            if(isset($src['table'])){
+            if(isset($src['table'])) {
                 $dbKey=null;
-                if(isset($configContents['dbkey']))$dbKey=$configContents['dbkey'];
+                if(isset($configContents['dbkey'])) $dbKey=$configContents['dbkey'];
 	            if($dbKey==null) $dbKey="app";
                 $sqlQuery=QueryBuilder::fromArray($src,_db($dbKey))->_sql();
-                return ["sqlquery"=>$sqlQuery,"tables"=>$src['table']." (".count(explode(",",$src['table'])).")"];
+                
+                $tableCount = count(explode(",",$src['table']));
+                
+                return [
+                        "sqlquery"=>$sqlQuery,
+                        "tables"=>"{$src['table']} ({$tableCount})",
+                        "table_count"=>$tableCount
+                    ];
             }
-            
         }
        
     }

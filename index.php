@@ -48,6 +48,17 @@ printPageComponent(false,[
 .pageComp{
     height:auto;
 }
+.btn.btn-dark, .alert.alert-dark {
+    color: #fff;
+    background-color: #CCCCCC;
+    border-color: #999;
+}
+.filter-buttons .btn .fa-check {
+    display: none;
+}
+.filter-buttons .btn.active .fa-check {
+    display: inline-block;
+}
 </style>
 <script>
 $(function() {
@@ -63,7 +74,17 @@ function loadCommonUI(actionTitle, tableHead) {
         <th>SQL Tables</th>
         <th>SQL Query</th>
       </tr>`;
-    $("#pgworkspace").html(`<div class='panel'> <h2>`+actionTitle+`</h2>
+      //<button type='button' class='btn btn-white' data-toggle='button'>All</button>
+    $("#pgworkspace").html(`<div class='panel'> 
+        <div class='filter-buttons' style='display: inline-block;width: 350px;float: right;margin-top:-5px'>
+        	<div class='btn-group' style='border: 1px solid #DEDEDE;'>
+        	  <button type='button' class='btn btn-danger' data-toggle='button' data-ref='alert-danger'><i class='fa fa-check'></i> Red</button>
+        	  <button type='button' class='btn btn-warning' data-toggle='button' data-ref='alert-warning'><i class='fa fa-check'></i> Orange</button>
+        	  <button type='button' class='btn btn-info' data-toggle='button' data-ref='alert-info'><i class='fa fa-check'></i> Blue</button>
+        	  <button type='button' class='btn btn-dark' data-toggle='button' data-ref='alert-dark'><i class='fa fa-check'></i> Grey</button>
+        	</div>
+        </div>
+    <h2>`+actionTitle+`</h2> 
 <div class="table-responsive">
  
   <p></p>
@@ -71,15 +92,22 @@ function loadCommonUI(actionTitle, tableHead) {
     <thead>
       `+tableHead+`
     </thead>
-    <tbody></tbody>
+    <tbody class='reportBody'></tbody>
   </table>
 </div>
 </div>`);
+
+    $("#pgworkspace .filter-buttons .btn").click(function() {
+        setTimeout(function() {
+            activateFilter();
+        }, 200);
+    });
 }
 function recreateCache() {
     // loadCommonUI("Creating Cache","");
     // $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
     showLoader();
+    
     processAJAXQuery(_service("dcLists","create_cache"), function(data) {
         hideLoader();
         lgksToast(data.Data.msg);
@@ -123,7 +151,8 @@ function showReports() {
             jData=data.msg;
             $.each(jData,function(k,v) {
                 no=k+1;
-    			html +="<tr>";
+                if(v.className==null) v.className = "";
+    			html +="<tr class='"+v.className+"'>";
     // 			html+="<td name='no'>"+ no +"</td>";
     			html+="<td name='title'>"+v.title+"</td>";
     			html+="<td name='value'><a href='"+v.link+"' target='_blank' class='searchResults'>"+v.path+"</a></td>";
@@ -164,5 +193,15 @@ function openCodeLink(src) {
     
     parent.openLinkFrame(txt,href);
     return false;
+}
+function activateFilter() {
+    if($("#pgworkspace .filter-buttons .btn.active").length>0) {
+        $("#pgworkspace tbody.reportBody tr").hide();
+        $("#pgworkspace .filter-buttons .btn.active").each(function() {
+            $("#pgworkspace tbody.reportBody tr."+$(this).data("ref")).show();
+        });
+    } else {
+        $("#pgworkspace tbody.reportBody tr").show();
+    }
 }
 </script>
