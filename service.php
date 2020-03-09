@@ -1,7 +1,7 @@
 <?php
 if(!defined('ROOT')) exit('No direct script access allowed');
 
-loadModuleLib("dcLists","api");
+loadModuleLib("datacontrolsAnalyser","api");
 
 handleActionMethodCalls();
 

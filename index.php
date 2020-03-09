@@ -14,20 +14,15 @@ function pageContentArea() {
 $toolBar = [
 // 			["title"=>"Search Store","type"=>"search","align"=>"right"],
             
-// 			"panel1"=>["title"=>"Available API","align"=>"right","class"=>($_REQUEST['panel']=="panel1")?"active":""],
-//      "panel2"=>["title"=>"APIKeys","align"=>"right","class"=>($_REQUEST['panel']=="panel2")?"active":""],
 // 			['type'=>"bar"],
             
         "recreateCache"=>["icon"=>"<i class='fa fa-retweet'></i>","title"=>"Recache"],
 		['type'=>"bar"],
 		"showReports"=>["icon"=>"<i class='fa fa-table'></i>","title"=>"Analyse Reports"],
 		"showForms"=>["icon"=>"<i class='fa fa-wpforms'></i>","title"=>"Analyse Forms"],
-// 		"showInfoViews"=>["icon"=>"<i class='fa fa-bookmark'></i>","title"=>"Analyse InfoViews"],		
+		"showInfoViews"=>["icon"=>"<i class='fa fa-bookmark'></i>","title"=>"Analyse InfoViews"],		
 // 		"showViews"=>["icon"=>"<i class='fa fa-file-o'></i>","title"=>"Analyse Views"],
 // 		"showInfoVisuals"=>["icon"=>"<i class='fa fa-area-chart'></i>","title"=>"Analyse InfoVisuals"],
-
-// 		['type'=>"bar"],
-// 			"trash"=>["icon"=>"<i class='fa fa-trash'></i>"],
 ];
 
 $moduleName = basename(dirname(__FILE__));
@@ -43,7 +38,7 @@ printPageComponent(false,[
 ?>
 <style>
 .panel {
-    margin: 20px;
+    /*margin: 20px;*/
     margin-top: 0px;
     border: 0px;
 }
@@ -97,7 +92,7 @@ function showForms() {
     loadCommonUI("Form Analysis");
     html="";
     $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
-    processAJAXQuery(_service("dcAnalyser","fetch_forms"), function(data) {
+    processAJAXQuery(_service("datacontrolsAnalyser","fetch_forms"), function(data) {
         data=data.Data;
         if(data.status==true){
             jData=data.msg;
@@ -122,7 +117,7 @@ function showReports() {
     loadCommonUI("Report Analysis");
     html="";
     $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
-    processAJAXQuery(_service("dcAnalyser","fetch_reports"), function(data) {
+    processAJAXQuery(_service("datacontrolsAnalyser","fetch_reports"), function(data) {
         data=data.Data;
         if(data.status==true){
             jData=data.msg;
