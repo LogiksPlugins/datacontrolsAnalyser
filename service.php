@@ -69,6 +69,8 @@ function getDCContents($filesAry,$filetype="report") {
                             $finalResults[]=$temp;
                         }
                     break;
+                    case "infoview":case "infoviews":
+                    break;
                     default;
                     break;
                 }
@@ -87,7 +89,10 @@ function getContentsFromForm($content){
                 if(isset($configContents['dbkey']))$dbKey=$configContents['dbkey'];
 	            if($dbKey==null) $dbKey="app";
                 $sqlQuery=QueryBuilder::fromArray($src,_db($dbKey))->_sql();
-                return ["sqlquery"=>$sqlQuery,"tables"=>$src['table']];
+                return [
+                    "sqlquery"=>$sqlQuery,
+                    "tables"=>$src['table']
+                ];
             }
         }
     }

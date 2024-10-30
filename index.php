@@ -19,8 +19,8 @@ $toolBar = [
         "recreateCache"=>["icon"=>"<i class='fa fa-retweet'></i>","title"=>"Recache"],
 		['type'=>"bar"],
 		"showReports"=>["icon"=>"<i class='fa fa-table'></i>","title"=>"Analyse Reports"],
-		"showForms"=>["icon"=>"<i class='fa fa-wpforms'></i>","title"=>"Analyse Forms"],
-		"showInfoViews"=>["icon"=>"<i class='fa fa-bookmark'></i>","title"=>"Analyse InfoViews"],		
+		"showForms"=>["icon"=>"<i class='fab fa-wpforms'></i>","title"=>"Analyse Forms"],
+// 		"showInfoViews"=>["icon"=>"<i class='fa fa-bookmark'></i>","title"=>"Analyse InfoViews"],		
 // 		"showViews"=>["icon"=>"<i class='fa fa-file-o'></i>","title"=>"Analyse Views"],
 // 		"showInfoVisuals"=>["icon"=>"<i class='fa fa-area-chart'></i>","title"=>"Analyse InfoVisuals"],
 ];
@@ -76,12 +76,12 @@ function loadCommonUI(actionTitle, tableHead) {
       </tr>`;
       //<button type='button' class='btn btn-white' data-toggle='button'>All</button>
     $("#pgworkspace").html(`<div class='panel'> 
-        <div class='filter-buttons' style='display: inline-block;width: 350px;float: right;margin-top:-5px'>
+        <div class='filter-buttons' style='display: inline-block;float: right;margin-top:-5px'>
         	<div class='btn-group' style='border: 1px solid #DEDEDE;'>
-        	  <button type='button' class='btn btn-danger' data-toggle='button' data-ref='alert-danger'><i class='fa fa-check'></i> Red</button>
-        	  <button type='button' class='btn btn-warning' data-toggle='button' data-ref='alert-warning'><i class='fa fa-check'></i> Orange</button>
-        	  <button type='button' class='btn btn-info' data-toggle='button' data-ref='alert-info'><i class='fa fa-check'></i> Blue</button>
-        	  <button type='button' class='btn btn-dark' data-toggle='button' data-ref='alert-dark'><i class='fa fa-check'></i> Grey</button>
+        	  <button type='button' class='btn btn-danger' data-toggle='button' data-ref='alert-danger'><i class='fa fa-check'></i> Bad Code</button>
+        	  <button type='button' class='btn btn-warning' data-toggle='button' data-ref='alert-warning'><i class='fa fa-check'></i> With Error</button>
+        	  <button type='button' class='btn btn-info' data-toggle='button' data-ref='alert-info'><i class='fa fa-check'></i> Warning</button>
+        	  <button type='button' class='btn btn-dark' data-toggle='button' data-ref='alert-dark'><i class='fa fa-check'></i> With Issues</button>
         	</div>
         </div>
     <h2>`+actionTitle+`</h2> 
@@ -168,17 +168,17 @@ function showReports() {
     },"json");
 }
 function showViews() {
-    loadCommonUI();
+    loadCommonUI("Views Analysis");
     
     $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
 }
 function showInfoVisuals() {
-    loadCommonUI();
+    loadCommonUI("InfoVisual Analysis");
     
     $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
 }
 function showInfoViews() {
-    loadCommonUI();
+    loadCommonUI("InfoView Analysis");
     
     $("#pgworkspace tbody").html("<tr><td colspan=20><div class='ajaxloading ajaxloading5'></div></td></tr>");
 }
